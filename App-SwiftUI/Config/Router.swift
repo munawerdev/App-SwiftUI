@@ -1,18 +1,18 @@
-//
-//  Router.swift
-//  App-SwiftUI
-//
-//  Created by Syed Munawer Ali on 01/10/2026.
-//
-
 import SwiftUI
 
-struct Router: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+enum Route: Hashable {
+    case home
+    case detail(item: String)
 }
 
-#Preview {
-    Router()
+@Observable
+final class Router {
+    var path = NavigationPath()
+
+    func push(_ route: Route) { path.append(route) }
+    func pop() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
+    }
+    func popToRoot() { path = NavigationPath() }
 }

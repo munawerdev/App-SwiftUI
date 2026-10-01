@@ -1,8 +1,12 @@
-//
-//  RouteDestinations.swift
-//  App-SwiftUI
-//
-//  Created by Syed Munawer Ali on 01/10/2026.
-//
+import SwiftUI
 
-import Foundation
+extension View {
+    func withRouteDestinations() -> some View {
+        navigationDestination(for: Route.self) { route in
+            switch route {
+            case .home: HomeView()
+            case .detail(let item): DetailView(item: item)
+            }
+        }
+    }
+}
