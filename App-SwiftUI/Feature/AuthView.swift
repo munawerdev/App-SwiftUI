@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AuthView: View {
     @State private var viewModel = AuthViewModel()
+    @Environment(Router.self) private var router
 
     var body: some View {
         ZStack {
@@ -40,16 +41,15 @@ struct AuthView: View {
                 )
                 AppSecureField(title: "Password", text: $viewModel.password)
 
-               
                 Spacer()
 
                 AppButton(
                     title: "Login",
                     backgroundColor: Color("OnboardingBackgroundColor"),
                     foregroundColor: Color("ButtonTextColor")
-                    
+
                 ) {
-                    BottomNavBar()
+                    router.push(.bottomNavBar)
                 }
             }
 
@@ -58,5 +58,7 @@ struct AuthView: View {
 }
 
 #Preview {
-    AuthView()
+    AppNavigationStack {
+        AuthView()
+    }
 }

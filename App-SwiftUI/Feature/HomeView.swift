@@ -9,10 +9,11 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    AppNavigationStack { HomeView() }
 }
 
 struct DetailView: View {
+    @Environment(Router.self) private var router
     
     let item: String
     var body: some View {

@@ -1,18 +1,29 @@
-//
-//  AppNavigationStack.swift
-//  App-SwiftUI
-//
-//  Created by Syed Munawer Ali on 02/10/2026.
-//
-
 import SwiftUI
 
-struct AppNavigationStack: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+struct AppNavigationStack<Root: View>: View {
+    @State private var router = Router()
+    private let root: Root
 
-#Preview {
-    AppNavigationStack()
+    init(@ViewBuilder root: () -> Root) {
+        self.root = root()
+    }
+
+    var body: some View {
+        @Bindable var router = router
+
+        NavigationStack(path: $router.path) {
+            root
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .onboarding: OnboardingView()
+                    case .auth: AuthView()
+                    case .bottomNavBar: BottomNavBar()
+                    case .home: HomeView()
+                    case .favorite: FavoriteView()
+                    case .detail(let item): DetailView(item: item)
+                    }
+                }
+        }
+        .environment(router)
+    }
 }

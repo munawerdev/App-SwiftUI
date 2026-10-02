@@ -1,8 +1,10 @@
-//
-//  Route.swift
-//  App-SwiftUI
-//
-//  Created by Syed Munawer Ali on 02/10/2026.
-//
+import SwiftUI
 
-import Foundation
+enum Route: Hashable {
+    case onboarding
+    case auth
+    case bottomNavBar
+    case home
+    case favorite
+    case detail(item: String)
+}

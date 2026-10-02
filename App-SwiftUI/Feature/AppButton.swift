@@ -1,23 +1,22 @@
 import SwiftUI
 
-struct AppButton<Destination: View>: View {
+struct AppButton: View {
     // MARK: - Properties
     let title: String
-    let destination: Destination
+    let action: () -> Void
 
     // Customization with defaults
-    var fontSize: CGFloat = 17
-    var fontWeight: Font.Weight = .semibold
-    var height: CGFloat = 70
-    var cornerRadius: CGFloat = 30
-    var backgroundColor: Color = Color("ButtonTextColor")
-    var foregroundColor: Color = Color("OnboardingBackgroundColor")
-    var horizontalPadding: CGFloat = 50
+    var fontSize: CGFloat
+    var fontWeight: Font.Weight
+    var height: CGFloat
+    var cornerRadius: CGFloat
+    var backgroundColor: Color
+    var foregroundColor: Color
+    var horizontalPadding: CGFloat
 
     // MARK: - Init
     init(
         title: String,
-       
         fontSize: CGFloat = 17,
         fontWeight: Font.Weight = .semibold,
         height: CGFloat = 70,
@@ -25,10 +24,9 @@ struct AppButton<Destination: View>: View {
         backgroundColor: Color = Color("ButtonTextColor"),
         foregroundColor: Color = Color("OnboardingBackgroundColor"),
         horizontalPadding: CGFloat = 50,
-        @ViewBuilder destination: () -> Destination
+        action: @escaping () -> Void
     ) {
         self.title = title
-        self.destination = destination()
         self.fontSize = fontSize
         self.fontWeight = fontWeight
         self.height = height
@@ -36,13 +34,12 @@ struct AppButton<Destination: View>: View {
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
         self.horizontalPadding = horizontalPadding
+        self.action = action
     }
 
     // MARK: - Body
     var body: some View {
-        NavigationLink {
-            destination
-        } label: {
+        Button(action: action) {
             Text(title)
                 .font(.system(size: fontSize, weight: fontWeight, design: .rounded))
                 .foregroundStyle(foregroundColor)
