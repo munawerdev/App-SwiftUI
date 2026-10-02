@@ -13,7 +13,7 @@ struct AuthView: View {
 
     var body: some View {
         ZStack {
-            Color("AppBackground").ignoresSafeArea()
+            AppColors.background.ignoresSafeArea()
             VStack {
                 VStack {
                     Image("Logo")
@@ -45,7 +45,7 @@ struct AuthView: View {
 
                 AppButton(
                     title: "Login",
-                    backgroundColor: Color("OnboardingBackgroundColor"),
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Color("ButtonTextColor")
 
                 ) {

@@ -22,7 +22,7 @@ struct AppButton: View {
         height: CGFloat = 70,
         cornerRadius: CGFloat = 30,
         backgroundColor: Color = Color("ButtonTextColor"),
-        foregroundColor: Color = Color("OnboardingBackgroundColor"),
+        foregroundColor: Color = AppColors.primary,
         horizontalPadding: CGFloat = 50,
         action: @escaping () -> Void
     ) {
@@ -41,7 +41,13 @@ struct AppButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: fontSize, weight: fontWeight, design: .rounded))
+                .font(
+                    .system(
+                        size: fontSize,
+                        weight: fontWeight,
+                        design: .rounded
+                    )
+                )
                 .foregroundStyle(foregroundColor)
                 .frame(maxWidth: .infinity)
                 .frame(height: height)

@@ -12,7 +12,7 @@ struct OnboardingView: View {
     var body: some View {
 
         ZStack(alignment: .topLeading) {
-            Color("OnboardingBackgroundColor")
+            AppColors.primary
                 .ignoresSafeArea()
 
             VStack(alignment: .leading, spacing: 20) {
