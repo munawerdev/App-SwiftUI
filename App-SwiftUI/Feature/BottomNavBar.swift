@@ -10,7 +10,7 @@ import SwiftUI
 struct BottomNavBar: View {
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(title: "Hello Home")
                 .tabItem { Label("", systemImage: "house") }
             FavoriteView()
                 .tabItem { Label("", systemImage: "heart") }
