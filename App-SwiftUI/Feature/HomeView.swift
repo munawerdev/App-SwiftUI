@@ -14,10 +14,21 @@ struct HomeView: View {
 
 struct DetailView: View {
     @Environment(Router.self) private var router
-    
+
     let item: String
     var body: some View {
-        Text("Details for: \(item)")
-            .navigationTitle(item)
+        Button("Details for: \(item)") {
+            router.push(.test)
+        }
+    }
+}
+
+struct TestView: View {
+    @Environment(Router.self) private var router
+
+    var body: some View {
+        Button("test view") {
+            router.pop(to: .bottomNavBar)
+        }
     }
 }

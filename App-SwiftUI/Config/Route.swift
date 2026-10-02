@@ -7,4 +7,6 @@ enum Route: Hashable {
     case home
     case favorite
     case detail(item: String)
+    
+    case test
 }

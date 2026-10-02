@@ -21,6 +21,8 @@ struct AppNavigationStack<Root: View>: View {
                     case .home: HomeView()
                     case .favorite: FavoriteView()
                     case .detail(let item): DetailView(item: item)
+
+                    case .test: TestView()
                     }
                 }
         }
