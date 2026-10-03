@@ -3,15 +3,14 @@ import SwiftUI
 struct HomeView: View {
     @Environment(Router.self) private var router
 
-    let title: String
     var body: some View {
-        Text("Hello \(title)")
+        Text("Hello")
     }
 }
 
 #Preview {
     AppNavigationStack {
-        HomeView(title: "Hello")
+        HomeView()
     }
 }
 

@@ -1,7 +1,5 @@
 import SwiftUI
 
-// MARK: - Tab model
-
 enum AppTab: Int, CaseIterable, Identifiable {
     case home, favorite, profile, history
 
@@ -9,25 +7,30 @@ enum AppTab: Int, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .home:     "Home"
+        case .home: "Home"
         case .favorite: "Favorites"
-        case .profile:  "Profile"
-        case .history:  "History"
+        case .profile: "Profile"
+        case .history: "History"
         }
     }
 
-    /// Returns the filled variant when selected, if the symbol has one.
     func icon(isSelected: Bool) -> String {
         switch self {
-        case .home:     isSelected ? "house.fill" : "house"
+        case .home: isSelected ? "house.fill" : "house"
         case .favorite: isSelected ? "heart.fill" : "heart"
-        case .profile:  isSelected ? "person.fill" : "person"
-        case .history:  "clock.arrow.circlepath"
+        case .profile: isSelected ? "person.fill" : "person"
+        case .history: "clock.arrow.circlepath"
         }
     }
+    //    var icon: String {
+    //        switch self {
+    //        case .home: AppImages.home
+    //        case .favorite: AppImages.heart
+    //        case .profile: AppImages.person
+    //        case .history: AppImages.history
+    //        }
+    //    }
 }
-
-// MARK: - Container
 
 struct BottomNavBar: View {
     @State private var selectedTab: AppTab = .home
@@ -45,15 +48,13 @@ struct BottomNavBar: View {
     @ViewBuilder
     private var content: some View {
         switch selectedTab {
-        case .home:     HomeView(title: "Hello Home")
+        case .home: HomeView()
         case .favorite: FavoriteView()
-        case .profile:  Text("Profile View")   // replace with ProfileView()
-        case .history:  Text("History View")   // replace with HistoryView()
+        case .profile: Text("Profile View")
+        case .history: Text("History View")
         }
     }
 }
-
-// MARK: - Bar
 
 struct CustomBottomBar: View {
     @Binding var selectedTab: AppTab
@@ -67,7 +68,7 @@ struct CustomBottomBar: View {
                 ) {
                     selectedTab = tab
                 }
-                .frame(maxWidth: .infinity)   // even spacing, replaces Spacer()
+                .frame(maxWidth: .infinity)
             }
         }
         .padding(.horizontal, 24)
@@ -79,8 +80,6 @@ struct CustomBottomBar: View {
     }
 }
 
-// MARK: - Item
-
 struct TabBarItem: View {
     let tab: AppTab
     let isSelected: Bool
@@ -90,17 +89,24 @@ struct TabBarItem: View {
         Button(action: action) {
             Image(systemName: tab.icon(isSelected: isSelected))
                 .font(.system(size: 26, weight: .medium))
-                .foregroundStyle(isSelected ? AppColors.primary : .gray.opacity(0.5))
+                .foregroundStyle(
+                    isSelected ? AppColors.primary : .gray.opacity(0.5)
+                )
                 .shadow(
                     color: isSelected ? AppColors.primary.opacity(0.6) : .clear,
-                    radius: 6, x: 0, y: 4
+                    radius: 6,
+                    x: 0,
+                    y: 4
                 )
                 .scaleEffect(isSelected ? 1.1 : 1.0)
-                .frame(maxWidth: .infinity, minHeight: 44)  // 44pt min tap target
+                .frame(maxWidth: .infinity, minHeight: 44)
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+        .animation(
+            .spring(response: 0.3, dampingFraction: 0.6),
+            value: isSelected
+        )
         .accessibilityLabel(tab.title)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }

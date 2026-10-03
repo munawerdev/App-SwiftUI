@@ -4,7 +4,7 @@ enum Route: Hashable {
     case onboarding
     case auth
     case bottomNavBar
-    case home(title: String)
+    case home
     case favorite
     //    case detail(item: String)
     //

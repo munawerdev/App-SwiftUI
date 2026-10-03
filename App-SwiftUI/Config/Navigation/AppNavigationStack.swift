@@ -18,7 +18,7 @@ struct AppNavigationStack<Root: View>: View {
                     case .onboarding: OnboardingView()
                     case .auth: AuthView()
                     case .bottomNavBar: BottomNavBar()
-                    case .home(let title): HomeView(title: title)
+                    case .home: HomeView()
                     case .favorite: FavoriteView()
                     //                    case .detail(let item): DetailView(item: item)
 
