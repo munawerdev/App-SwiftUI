@@ -20,6 +20,7 @@ struct AppNavigationStack<Root: View>: View {
                     case .bottomNavBar: BottomNavBar()
                     case .home: HomeView()
                     case .favorite: FavoriteView()
+                    case .foodDetail(let item): FoodDetailView(item: item)
                     //                    case .detail(let item): DetailView(item: item)
 
                     //                    case .test: TestView()

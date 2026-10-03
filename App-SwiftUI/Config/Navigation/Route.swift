@@ -6,6 +6,7 @@ enum Route: Hashable {
     case bottomNavBar
     case home
     case favorite
+    case foodDetail(item: FoodItem)
     //    case detail(item: String)
     //
     //    case test

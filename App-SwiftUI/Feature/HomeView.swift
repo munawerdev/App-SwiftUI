@@ -84,7 +84,7 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 28) {
+            VStack(alignment: .leading, spacing: 24) {
                 topNavigationBar
 
                 headerText
@@ -97,8 +97,8 @@ struct HomeView: View {
 
                 foodCarouselSection
             }
-            .padding(.top, 20)
-//            .padding(.bottom, 24)
+            .padding(.top, 10)
+            .padding(.bottom, 40)
         }
         .background(AppColors.background.ignoresSafeArea())
     }
@@ -215,18 +215,24 @@ struct HomeView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 24) {
                 ForEach(filteredItems) { item in
-                    FoodCardView(item: item)
+                    FoodCardView(
+                        item: item,
+                        onAdd: {
+                            router.push(.foodDetail(item: item))
+                        }
+                    )
                 }
             }
             .padding(.horizontal, 30)
-            .padding(.top, 40)
-            .padding(.bottom, 20)
+            .padding(.top, 10)
+            .padding(.bottom, 30)
         }
     }
 }
 
 struct FoodCardView: View {
     let item: FoodItem
+    let onAdd: () -> Void
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -252,8 +258,8 @@ struct FoodCardView: View {
             .frame(width: 220, height: 270)
             .background(Color.white)
             .cornerRadius(30)
-            .shadow(color: Color.black.opacity(0.06), radius: 20, x: 0, y: 12)
-            .padding(.top, 50)
+            .shadow(color: Color.black.opacity(0.08), radius: 15, x: 0, y: 10)
+            .padding(.top, 40)
 
             AsyncImage(url: URL(string: item.imageUrl)) { phase in
                 switch phase {
@@ -269,9 +275,12 @@ struct FoodCardView: View {
             }
             .frame(width: 150, height: 150)
             .clipShape(Circle())
-            .shadow(color: Color.black.opacity(0.15), radius: 12, x: 0, y: 8)
+            .shadow(color: Color.black.opacity(0.12), radius: 10, x: 0, y: 8)
         }
-        .frame(width: 220, height: 320)
+        .frame(width: 220, height: 350)
+        .onTapGesture {
+            onAdd()
+        }
     }
 
     private var foodPlaceholder: some View {
