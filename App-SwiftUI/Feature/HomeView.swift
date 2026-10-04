@@ -84,20 +84,23 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading) {
                 topNavigationBar
+                Spacer(minLength: 40)
 
                 headerText
 
                 searchBarField
+                Spacer(minLength: 46)
 
                 categoryTabs
+                Spacer(minLength: 40)
 
                 seeMoreButton
 
                 foodCarouselSection
             }
-            .padding(.top, 10)
+            .padding(.top, 20)
             .padding(.bottom, 40)
         }
         .background(AppColors.background.ignoresSafeArea())
@@ -129,8 +132,7 @@ struct HomeView: View {
                     .foregroundStyle(Color.gray.opacity(0.8))
             }
         }
-        .padding(.horizontal, 30)
-        .padding(.top, 10)
+        .padding(.horizontal, 40)
     }
 
     private var headerText: some View {
@@ -138,7 +140,7 @@ struct HomeView: View {
             .font(.system(size: 34, weight: .bold, design: .rounded))
             .foregroundStyle(Color.black)
             .lineSpacing(4)
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 40)
     }
 
     private var searchBarField: some View {
@@ -151,11 +153,11 @@ struct HomeView: View {
                 .font(.system(size: 17, weight: .medium))
                 .foregroundStyle(Color.black)
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 35)
         .frame(height: 60)
-        .background(Color(white: 0.94))
+        .background(Color("TextFieldColor"))
         .clipShape(Capsule())
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 40)
     }
 
     private var categoryTabs: some View {
@@ -193,7 +195,7 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                 }
             }
-            .padding(.horizontal, 45)
+            .padding(.horizontal, 40)
         }
     }
 
@@ -204,16 +206,17 @@ struct HomeView: View {
             } label: {
                 Text("see more")
                     .font(.system(size: 15, weight: .medium))
+
                     .foregroundStyle(AppColors.primary)
+                    .padding(.bottom, -10)
             }
         }
-        .padding(.horizontal, 35)
-        .padding(.bottom, -10)
+        .padding(.horizontal, 40)
     }
 
     private var foodCarouselSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 24) {
+            HStack(spacing: 34) {
                 ForEach(filteredItems) { item in
                     FoodCardView(
                         item: item,
@@ -223,8 +226,8 @@ struct HomeView: View {
                     )
                 }
             }
-            .padding(.horizontal, 30)
-            .padding(.top, 10)
+            .padding(.horizontal, 40)
+            //            .padding(.top, 10)
             .padding(.bottom, 30)
         }
     }
@@ -238,7 +241,7 @@ struct FoodCardView: View {
         ZStack(alignment: .top) {
             VStack(spacing: 16) {
                 Spacer()
-                    .frame(height: 75)
+                    .frame(height: 145)
 
                 Text(item.name)
                     .font(.system(size: 22, weight: .bold, design: .rounded))
@@ -247,19 +250,17 @@ struct FoodCardView: View {
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Spacer()
-
                 Text(item.price)
                     .font(.system(size: 17, weight: .bold))
                     .foregroundStyle(AppColors.primary)
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 24)
+            .padding(.bottom, 40)
             .frame(width: 220, height: 270)
             .background(Color.white)
             .cornerRadius(30)
             .shadow(color: Color.black.opacity(0.08), radius: 15, x: 0, y: 10)
-            .padding(.top, 40)
+            .padding(.top, 55)
 
             AsyncImage(url: URL(string: item.imageUrl)) { phase in
                 switch phase {
@@ -273,7 +274,7 @@ struct FoodCardView: View {
                     foodPlaceholder
                 }
             }
-            .frame(width: 150, height: 150)
+            .frame(width: 164, height: 164)
             .clipShape(Circle())
             .shadow(color: Color.black.opacity(0.12), radius: 10, x: 0, y: 8)
         }

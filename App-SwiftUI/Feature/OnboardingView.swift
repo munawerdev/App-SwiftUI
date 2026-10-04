@@ -52,7 +52,6 @@ struct OnboardingView: View {
                             .offset(x: -70, y: 0)
                     }
                     .overlay(
-                        // Linear gradient from 10% clear to 100% #FF470B
                         LinearGradient(
                             stops: [
                                 .init(color: .clear, location: 0.10),
