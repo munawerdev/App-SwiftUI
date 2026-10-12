@@ -63,7 +63,9 @@ struct FoodDetailView: View {
             } label: {
                 Image(systemName: isFavorite ? "heart.fill" : "heart")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(isFavorite ? AppColors.primary : Color.black)
+                    .foregroundStyle(
+                        isFavorite ? AppColors.primary : Color.black
+                    )
                     .frame(width: 40, height: 40)
             }
         }

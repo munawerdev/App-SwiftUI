@@ -276,7 +276,13 @@ struct FoodCardView: View {
             }
             .frame(width: 164, height: 164)
             .clipShape(Circle())
-            .shadow(color: Color.black.opacity(0.12), radius: 10, x: 0, y: 8)
+            .background(
+                Circle()
+                    .fill(Color.black.opacity(0.18))
+                    .blur(radius: 12)
+                    .offset(y: 12)
+            )
+            .shadow(color: Color.black.opacity(0.1), radius: 30, x: 0, y: 10)
         }
         .frame(width: 220, height: 350)
         .onTapGesture {
