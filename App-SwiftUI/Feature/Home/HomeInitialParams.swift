@@ -1,4 +1,4 @@
 // HomeInitialParams.swift
-struct HomeInitialParams {
+nonisolated struct HomeInitialParams {
     init() {}
 }

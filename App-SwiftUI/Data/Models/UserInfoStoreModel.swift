@@ -1,6 +1,6 @@
 import Foundation
 
-struct UserInfoStoreModel: Codable, Equatable {
+nonisolated struct UserInfoStoreModel: Codable, Equatable {
     let accessToken: String
     let refreshToken: String
 

@@ -17,10 +17,12 @@ struct ContentView: View {
     @Environment(\.timeZone) var timeZone
 
     @State var logic = Logic()
-    @State var region = MKCoordinateRegion(
-        center: .init(latitude: 37.334722, longitude: -122.008889),
-        latitudinalMeters: 300,
-        longitudinalMeters: 300
+    @State var region = MapCameraPosition.region(
+        MKCoordinateRegion(
+            center: .init(latitude: 37.334722, longitude: -122.008889),
+            latitudinalMeters: 300,
+            longitudinalMeters: 300
+        )
     )
 
     var body: some View {
@@ -67,9 +69,10 @@ struct ContentView: View {
                 .underline()
                 .lineLimit(2)
                 .foregroundColor(.red)
-            Text("Hello\nWorld! \(logic.isToggle)").multilineTextAlignment(
-                .center
-            )
+            Text("Hello\nWorld! \(String(logic.isToggle))")
+                .multilineTextAlignment(
+                    .center
+                )
             Slider(value: .constant(0.5), in: 0...1)
             //        colorScheme == .dark ?
             //        Color.white.ignoresSafeArea() :
@@ -93,7 +96,7 @@ struct ContentView: View {
                     }
                 }
 
-            Map(coordinateRegion: $region).frame(height: 300)
+            Map(position: $region).frame(height: 300)
 
         }
     }

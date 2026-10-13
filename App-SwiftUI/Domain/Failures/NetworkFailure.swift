@@ -1,6 +1,6 @@
 import Foundation
 
-enum NetworkFailureType {
+nonisolated enum NetworkFailureType {
     case connectionTimeout
     case sendTimeout
     case receiveTimeout
@@ -20,7 +20,7 @@ enum NetworkFailureType {
     case unknown
 }
 
-struct NetworkFailure: Error, Hashable, CustomStringConvertible {
+nonisolated struct NetworkFailure: Error, Hashable, CustomStringConvertible {
     let error: String
     let type: NetworkFailureType
     let statusCode: Int?

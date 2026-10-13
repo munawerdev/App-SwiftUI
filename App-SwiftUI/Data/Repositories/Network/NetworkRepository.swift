@@ -35,7 +35,7 @@ final class NetworkRepository: NetworkBaseApiService {
             var prepared = try prepare(request)
 
             // onRequest: attach the access token
-            let token = await userDataSources.state.accessToken
+            let token = userDataSources.state.accessToken
             if !token.isEmpty {
                 prepared.request.setValue(
                     "Bearer \(token)",
