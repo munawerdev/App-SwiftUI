@@ -5,7 +5,9 @@ struct HomeView: View {
 
     var body: some View {
         if let container {
-            HomeContentView(viewModel: container.makeHomeViewModel())
+            HomeContentView(
+                container: container
+            )
         }
     }
 }
@@ -13,8 +15,8 @@ struct HomeView: View {
 private struct HomeContentView: View {
     @State private var viewModel: HomeViewModel
 
-    init(viewModel: HomeViewModel) {
-        _viewModel = State(initialValue: viewModel)
+    init(container: AppContainer) {
+        _viewModel = State(initialValue: container.makeHomeViewModel())
     }
 
     var body: some View {
