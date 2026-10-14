@@ -6,9 +6,9 @@ struct FoodDetailView: View {
     let item: FoodItem
 
     @State private var isFavorite: Bool = false
-    @State private var currentPage: Int = 0
+    //    @State private var currentPage: Int = 0
 
-    private let sampleImagesCount = 4
+    //    private let sampleImagesCount = 4
 
     var body: some View {
         VStack(spacing: 0) {
@@ -76,49 +76,30 @@ struct FoodDetailView: View {
 
     // MARK: - Image Carousel Section
     private var imageCarouselSection: some View {
-        VStack(spacing: 24) {
-            TabView(selection: $currentPage) {
-                ForEach(0..<sampleImagesCount, id: \.self) { index in
-                    AsyncImage(url: URL(string: item.imageUrl)) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        case .failure, .empty:
-                            foodPlaceholder
-                        @unknown default:
-                            foodPlaceholder
-                        }
-                    }
-                    .frame(width: 240, height: 240)
-                    .clipShape(Circle())
-                    .shadow(
-                        color: Color.black.opacity(0.15),
-                        radius: 20,
-                        x: 0,
-                        y: 12
-                    )
-                    .tag(index)
-                }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: 260)
+        AsyncImage(url: URL(string: item.imageUrl)) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
 
-            // Page Indicator Dots
-            HStack(spacing: 10) {
-                ForEach(0..<sampleImagesCount, id: \.self) { index in
-                    Circle()
-                        .fill(
-                            currentPage == index
-                                ? AppColors.primary : Color.gray.opacity(0.3)
-                        )
-                        .frame(width: 8, height: 8)
-                }
+            case .empty, .failure:
+                foodPlaceholder
+
+            @unknown default:
+                foodPlaceholder
             }
         }
+        .frame(width: 240, height: 240)
+        .clipShape(Circle())
+        .shadow(
+            color: .black.opacity(0.15),
+            radius: 20,
+            x: 0,
+            y: 12
+        )
+        .frame(maxWidth: .infinity)
     }
-
     // MARK: - Title & Price Section
     private var titleAndPriceSection: some View {
         VStack(spacing: 10) {
@@ -187,17 +168,17 @@ struct FoodDetailView: View {
         }
     }
 }
+#Preview("Food Detail") {
+    let container = AppContainer()
 
-#Preview {
-    AppNavigationStack {
+    AppNavigationStack(container: container) {
         FoodDetailView(
             item: FoodItem(
                 id: "1",
                 name: "Veggie tomato mix",
                 price: "N1,900",
                 category: "Foods",
-                imageUrl:
-                    "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80"
+                imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80"
             )
         )
     }

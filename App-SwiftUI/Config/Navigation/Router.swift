@@ -1,22 +1,36 @@
+import Foundation
 import Observation
-import SwiftUI
 
+@MainActor
 @Observable
 final class Router {
+
     var path: [Route] = []
 
-    func push(_ route: Route) { path.append(route) }
-    func pop() { _ = path.popLast() }
-    func popToRoot() { path.removeAll() }
+    func push(_ route: Route) {
+        path.append(route)
+    }
 
-    /// Go back to a specific screen that is already in the stack.
+    func pop() {
+        guard !path.isEmpty else { return }
+        path.removeLast()
+    }
+
+    func popToRoot() {
+        path.removeAll()
+    }
+
     func pop(to route: Route) {
-        guard let index = path.lastIndex(of: route) else { return }
+        guard let index = path.lastIndex(of: route) else {
+            return
+        }
+
+        // Keep the selected route in the stack.
         path.removeLast(path.count - index - 1)
     }
 
-    /// Go back N screens.
     func pop(count: Int) {
+        guard count > 0 else { return }
         path.removeLast(min(count, path.count))
     }
 }

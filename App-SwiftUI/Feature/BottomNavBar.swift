@@ -34,11 +34,19 @@ enum AppTab: Int, CaseIterable, Identifiable {
 
 struct BottomNavBar: View {
     @State private var selectedTab: AppTab = .home
+    @State private var homeViewModel: HomeViewModel
+
+    init(homeViewModel: HomeViewModel) {
+        _homeViewModel = State(initialValue: homeViewModel)
+    }
 
     var body: some View {
         content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(AppColors.background.ignoresSafeArea())
+            .background {
+                AppColors.background
+                    .ignoresSafeArea()
+            }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 CustomBottomBar(selectedTab: $selectedTab)
             }
@@ -48,10 +56,17 @@ struct BottomNavBar: View {
     @ViewBuilder
     private var content: some View {
         switch selectedTab {
-        case .home: HomeView()
-        case .favorite: FavoriteView()
-        case .profile: Text("Profile View")
-        case .history: Text("History View")
+        case .home:
+            HomeView(viewModel: homeViewModel)
+
+        case .favorite:
+            FavoriteView()
+
+        case .profile:
+            Text("Profile View")
+
+        case .history:
+            Text("History View")
         }
     }
 }
@@ -111,9 +126,13 @@ struct TabBarItem: View {
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
+#Preview("Bottom Navigation") {
+    let container = AppContainer()
 
-#Preview {
-    AppNavigationStack {
-        BottomNavBar()
-    }
+    BottomNavBar(
+        homeViewModel: container.makeHomeViewModel()
+    )
+//    .environment(Router())
+//    .environment(container.userDataSources)
+//    .environment(container.themeDataSources)
 }

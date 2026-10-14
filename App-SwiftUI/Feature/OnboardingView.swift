@@ -73,9 +73,10 @@ struct OnboardingView: View {
 
     }
 }
+#Preview("App Navigation") {
+    let container = AppContainer()
 
-#Preview {
-    AppNavigationStack {
+    AppNavigationStack(container: container) {
         OnboardingView()
     }
 }

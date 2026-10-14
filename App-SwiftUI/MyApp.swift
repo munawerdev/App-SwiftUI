@@ -2,32 +2,42 @@ import SwiftUI
 
 @main
 struct MyApp: App {
+
     @State private var container = AppContainer()
 
     var body: some Scene {
         WindowGroup {
-            AppNavigationStack {
+            AppNavigationStack(container: container) {
                 OnboardingView()
             }
-            .environment(\.container, container)
             .environment(container.userDataSources)
             .environment(container.themeDataSources)
             .preferredColorScheme(
-                container.themeDataSources.isDarkTheme ? .dark : .light
+                container.themeDataSources.isDarkTheme
+                    ? .dark
+                    : .light
             )
-            .task { await bootstrap() }
+            .task {
+                await bootstrap()
+            }
         }
     }
 
-    /// What SplashCubit did at launch: restore the theme and any saved session
     private func bootstrap() async {
         _ = await container.getTheme.execute()
 
-        switch await container.checkForExistingUser.execute() {
+        let result =
+            await container.checkForExistingUser.execute()
+
+        switch result {
         case .success:
-            break  // user is logged in: route to your main screen here
+            // Restore the authenticated app flow.
+            // Connect this to your actual launch-state handling.
+            break
+
         case .failure:
-            break  // no saved user: stay on OnboardingView / go to login
+            // Show onboarding or authentication.
+            break
         }
     }
 }

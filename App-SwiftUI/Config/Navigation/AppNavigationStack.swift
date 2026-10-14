@@ -1,10 +1,17 @@
 import SwiftUI
 
 struct AppNavigationStack<Root: View>: View {
+
     @State private var router = Router()
+
+    private let container: AppContainer
     private let root: Root
 
-    init(@ViewBuilder root: () -> Root) {
+    init(
+        container: AppContainer,
+        @ViewBuilder root: () -> Root
+    ) {
+        self.container = container
         self.root = root()
     }
 
@@ -14,19 +21,36 @@ struct AppNavigationStack<Root: View>: View {
         NavigationStack(path: $router.path) {
             root
                 .navigationDestination(for: Route.self) { route in
-                    switch route {
-                    case .onboarding: OnboardingView()
-                    case .auth: AuthView()
-                    case .bottomNavBar: BottomNavBar()
-                    case .home: HomeView()
-                    case .favorite: FavoriteView()
-                    case .foodDetail(let item): FoodDetailView(item: item)
-                    //                    case .detail(let item): DetailView(item: item)
-
-                    //                    case .test: TestView()
-                    }
+                    destination(for: route)
                 }
         }
         .environment(router)
+    }
+
+    @ViewBuilder
+    private func destination(for route: Route) -> some View {
+        switch route {
+        case .onboarding:
+            OnboardingView()
+
+        case .auth:
+            AuthView()
+
+        case .bottomNavBar:
+            BottomNavBar(
+                homeViewModel: container.makeHomeViewModel()
+            )
+
+        case .home:
+            HomeView(
+                viewModel: container.makeHomeViewModel()
+            )
+
+        case .favorite:
+            FavoriteView()
+
+        case .foodDetail(let item):
+            FoodDetailView(item: item)
+        }
     }
 }

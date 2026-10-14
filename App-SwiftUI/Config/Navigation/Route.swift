@@ -1,4 +1,4 @@
-import SwiftUI
+import Foundation
 
 enum Route: Hashable {
     case onboarding
@@ -7,7 +7,4 @@ enum Route: Hashable {
     case home
     case favorite
     case foodDetail(item: FoodItem)
-    //    case detail(item: String)
-    //
-    //    case test
 }
